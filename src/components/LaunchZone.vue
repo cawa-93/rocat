@@ -1,6 +1,7 @@
 <script setup>
 
 import {onMounted, onUnmounted, ref} from "vue";
+import {addScore, clearScore} from "../gameScore.js";
 
 /** @type {Ref<HTMLElement>} */
 const root = ref()
@@ -28,7 +29,7 @@ const emit = defineEmits(['end'])
 
 function end() {
   document.removeEventListener('click', clickHandler)
-  emit('end')
+  setTimeout(() => emit('end'), 2000)
 }
 
 const endDebounced = debounce(end, 2000)
@@ -47,6 +48,7 @@ function clickHandler(event) {
 
 
 onMounted(() => {
+  clearScore()
   countdown.value.addEventListener('animationend', (event) => {
     if (event.target === countdown.value) {
       document.addEventListener('click', clickHandler)
@@ -85,7 +87,12 @@ function launchRocket(from) {
   target.style.setProperty('--rotate', CSSAbsoluteRotation + 'deg')
   target.style.setProperty('--height', hypotenuse + 'px')
 
-  target.classList.add(isStrike(to) ? 'strike' : 'miss')
+  const isHit = isStrike(to);
+  target.classList.add(isHit ? 'strike' : 'miss')
+
+  if (isHit) {
+    addScore()
+  }
 
   target.style.setProperty('--left', (left * 100) + '%')
   target.style.setProperty('--top', (top * 100) + '%')

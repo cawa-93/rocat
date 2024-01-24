@@ -32,25 +32,4 @@ section {
   background: none;
 }
 
-.pulse {
-  animation-iteration-count: infinite;
-  animation-duration: 2s;
-  animation-name: pulse;
-  animation-timing-function: ease-in-out;
-}
-
-
-@keyframes pulse {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    transform: scale3d(1.05, 1.05, 1.05);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
-}
 </style>
