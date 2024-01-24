@@ -1,23 +1,60 @@
 <script setup>
 
-import {onMounted, ref} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 
 /** @type {Ref<HTMLElement>} */
 const root = ref()
+/** @type {Ref<HTMLElement>} */
 const moscovia = ref()
+/** @type {Ref<HTMLElement>} */
+const countdown = ref()
 
 function isStrike({x, y}) {
   return document.elementFromPoint(x, y) instanceof SVGPathElement
 }
 
-onMounted(() => {
-  document.addEventListener('click', (event) => {
-    launchRocket({
-      x: event.clientX,
-      y: event.clientY,
-    })
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+const emit = defineEmits(['end'])
+
+function end() {
+  document.removeEventListener('click', clickHandler)
+  emit('end')
+}
+
+const endDebounced = debounce(end, 2000)
+
+
+
+/** @param {MouseEvent} event */
+function clickHandler(event) {
+  launchRocket({
+    x: event.clientX,
+    y: event.clientY,
   })
+
+  endDebounced();
+}
+
+
+onMounted(() => {
+  countdown.value.addEventListener('animationend', (event) => {
+    if (event.target === countdown.value) {
+      document.addEventListener('click', clickHandler)
+    }
+  });
 })
+
+onUnmounted(() => document.removeEventListener('click', clickHandler))
 
 /**
  *
@@ -60,6 +97,13 @@ function launchRocket(from) {
 
 <template>
   <div id="launch-zone-root">
+
+    <div ref="countdown" class="time-count">
+      <div>3</div>
+      <div>2</div>
+      <div>1</div>
+      <div>TAP!</div>
+    </div>
 
     <div id="map-container">
       <svg ref="moscovia" id="moscovia" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -323,6 +367,68 @@ function launchRocket(from) {
 </template>
 
 <style scoped>
+
+.time-count {
+  position: absolute;
+  z-index: 10;
+  background: var(--background);
+  width: 100%;
+  height: 100%;
+  font-size: 15em;
+  padding: 3rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: disable 4s;
+  animation-fill-mode: forwards;
+}
+
+.time-count > div {
+  opacity: 0;
+  position: absolute;
+  animation: countDown 1s;
+  animation-fill-mode: none;
+  pointer-events: none;
+}
+
+.time-count > div:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.time-count > div:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.time-count > div:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.time-count > div:nth-child(4) {
+  animation-delay: 3s;
+}
+
+@keyframes disable {
+  from {
+    visibility: visible;
+  }
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@keyframes countDown {
+  from {
+    opacity: 0.7;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
 #moscovia {
   width: 100%;
