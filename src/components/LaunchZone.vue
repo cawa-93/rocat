@@ -1,60 +1,58 @@
 <script setup>
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 /** @type {Ref<HTMLElement>} */
 const root = ref()
 const moscovia = ref()
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+function isStrike({x, y}) {
+  return document.elementFromPoint(x, y) instanceof SVGPathElement
 }
 
-function isStrike({left, top}) {
-  var clientRect = document.querySelector('#moscovia').getBoundingClientRect();
+onMounted(() => {
+  document.addEventListener('click', (event) => {
+    launchRocket({
+      x: event.clientX,
+      y: event.clientY,
+    })
+  })
+})
 
-  const targetX = clientRect.left + (clientRect.width * left)
-  const targetY = clientRect.top + (clientRect.height * top)
-
-  return document.elementFromPoint(targetX, targetY) instanceof SVGPathElement
-}
-
-function addRocket() {
+/**
+ *
+ * @param {{x: number, y: number}} from
+ */
+function launchRocket(from) {
 
   const left = Math.random()
   const top = Math.random()
 
-  const btn = document.querySelector('#launch')
-  const btnRect = btn.getBoundingClientRect()
-  const buttonMiddlePointX = btnRect.left+(btnRect.width/2);
-  const buttonMiddlePointY = btnRect.top+(btnRect.height/2);
+  const clientRect = moscovia.value.getBoundingClientRect();
+
+  const to = {
+    x: clientRect.left + (clientRect.width * left),
+    y: clientRect.top + (clientRect.height * top),
+  }
+
+  const diffX = to.x - from.x
+  const diffY = to.y - from.y
+
+  const hypotenuse = Math.sqrt(diffX * diffX + diffY * diffY);
+  const angleInRads = Math.asin(diffX / hypotenuse)
+  const angleInDegrees = (angleInRads * 360) / (Math.PI * 2)
+  const CSSAbsoluteRotation = diffY > 0 ? 180 - angleInDegrees : angleInDegrees
 
   const target = document.createElement('div')
 
-  var clientRect = document.querySelector('#moscovia').getBoundingClientRect();
 
-  const targetX = clientRect.left + (clientRect.width * left)
-  const targetY = clientRect.top + (clientRect.height * top)
+  target.style.setProperty('--rotate', CSSAbsoluteRotation + 'deg')
+  target.style.setProperty('--height', hypotenuse + 'px')
 
+  target.classList.add(isStrike(to) ? 'strike' : 'miss')
 
-  const diffX = targetX - buttonMiddlePointX
-  const diffY = targetY - buttonMiddlePointY
-
-
-  const hypotenuse = Math.sqrt(diffX * diffX + diffY * diffY);
-  const angleInDegrees = (Math.asin(diffX / hypotenuse) * 180) / Math.PI
-
-  target.style.setProperty('--rotate', angleInDegrees+'deg')
-  target.style.setProperty('--height', hypotenuse+'px')
-
-
-
-  target.classList.add(isStrike({left, top}) ? 'strike' : 'miss')
-
-  target.style.setProperty('--left', (left * 100) + '%')
-  target.style.setProperty('--top', (top * 100) + '%')
+  target.style.setProperty('--left', (to.left * 100) + '%')
+  target.style.setProperty('--top', (to.top * 100) + '%')
 
   root.value.appendChild(target)
 
@@ -322,8 +320,6 @@ function addRocket() {
       </svg>
       <div ref="root" id="launch-zone-rockets-container"></div>
     </div>
-
-    <button id="launch" @click.prevent="addRocket">LAUNCH</button>
   </div>
 </template>
 
@@ -333,11 +329,6 @@ function addRocket() {
   width: 100%;
   max-width: 800px;
   height: auto;
-}
-
-button {
-  position: relative;
-  z-index: 1;
 }
 
 #launch-zone-root {
@@ -358,15 +349,15 @@ button {
 }
 
 #launch-zone-rockets-container :deep(div) {
+  pointer-events: none;
   --fly-duration: 3s;
   transform-origin: top;
   //outline: 1px solid red;
   position: absolute;
   top: var(--top);
   left: var(--left);
-  //height: calc(100% - var(--top));
   height: var(--height, 100vh);
-  transform:  rotate(var(--rotate));
+  transform: rotate(var(--rotate));
 }
 
 #launch-zone-rockets-container :deep(div:before) {
