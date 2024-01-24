@@ -6,7 +6,7 @@ const emit = defineEmits(['start'])
 const score = getScore()
 
 const showDonateForm = ref(false)
-
+const donate = ref(100)
 </script>
 
 <template>
@@ -21,14 +21,14 @@ const showDonateForm = ref(false)
       </b>
     </div>
 
-    <form v-if="showDonateForm" method="get" action="https://send.monobank.ua/jar/4Dyucs5PBU" target="_blank">
+    <div v-if="showDonateForm">
       <div class="donate-input">
         <img class="rocket" src="../assets/rocket.svg" alt="Rocket">
         <img src="../assets/x.svg" alt="X">
-        <input type="number" name="a" value="100">
+        <input type="number" name="a" v-model="donate">
       </div>
-      <button type="submit" class="pulse">Launch</button>
-    </form>
+      <a target="_blank" :href="'https://send.monobank.ua/jar/4Dyucs5PBU?a=' + (donate + score)" class="pulse">Launch</a>
+    </div>
 
     <button class="pulse" type="button" @click="showDonateForm = true" v-else>Launch more</button>
 
