@@ -8,7 +8,7 @@ import GameScore from "./components/GameScore.vue";
  *
  * @type {Ref<'START-SCREEN'|'IN-GAME'|'GAME-END'>}
  */
-const STATE = ref(import.meta.env.PROD ? 'START-SCREEN' : 'GAME-END')
+const STATE = ref(import.meta.env.PROD ? 'START-SCREEN' : 'IN-GAME')
 </script>
 
 <template>
