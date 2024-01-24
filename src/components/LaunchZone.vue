@@ -45,14 +45,13 @@ function launchRocket(from) {
 
   const target = document.createElement('div')
 
-
   target.style.setProperty('--rotate', CSSAbsoluteRotation + 'deg')
   target.style.setProperty('--height', hypotenuse + 'px')
 
   target.classList.add(isStrike(to) ? 'strike' : 'miss')
 
-  target.style.setProperty('--left', (to.left * 100) + '%')
-  target.style.setProperty('--top', (to.top * 100) + '%')
+  target.style.setProperty('--left', (left * 100) + '%')
+  target.style.setProperty('--top', (top * 100) + '%')
 
   root.value.appendChild(target)
 
@@ -356,6 +355,7 @@ function launchRocket(from) {
   position: absolute;
   top: var(--top);
   left: var(--left);
+  //height: calc(100% - var(--top));
   height: var(--height, 100vh);
   transform: rotate(var(--rotate));
 }
