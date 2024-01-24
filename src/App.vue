@@ -1,25 +1,18 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 import LaunchZone from "./components/LaunchZone.vue";
+import {ref} from "vue";
+import StartScreen from "./components/StartScreen.vue";
+
+/**
+ *
+ * @type {Ref<'START-SCREEN'|'IN-GAME'|'GAME-END'>}
+ */
+const STATE = ref('START-SCREEN')
 </script>
 
 <template>
 <div>
-  <LaunchZone/>
+  <StartScreen @start="STATE = 'IN-GAME'" v-if="STATE === 'START-SCREEN'"/>
+  <LaunchZone v-else-if="STATE === 'IN-GAME'"/>
 </div>
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
