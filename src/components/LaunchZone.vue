@@ -483,14 +483,11 @@ function launchRocket(from) {
 #launch-zone-rockets-container :deep(div) {
   pointer-events: none;
   --fly-duration: 3s;
-  //outline: 1px solid red;
   position: absolute;
   top: var(--top);
   left: var(--left);
   width: 32px;
   aspect-ratio: 1;
-  //height: calc(100% - var(--top));
-  //height: var(--height, 100vh);
   rotate: var(--rotate);
   translate: calc(var(--start-x) - 50%) calc(var(--start-y) - 50%);
   transform-origin: center;
