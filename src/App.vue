@@ -8,10 +8,11 @@ import GameScore from "./components/GameScore.vue";
  *
  * @type {Ref<'START-SCREEN'|'IN-GAME'|'GAME-END'>}
  */
-const STATE = ref(import.meta.env.PROD ? 'START-SCREEN' : 'GAME-END')
+const STATE = ref(import.meta.env.PROD ? 'START-SCREEN' : 'START-SCREEN')
 
 const currentScore = ref(0)
 function onGameEnd(score) {
+  console.log({score})
   currentScore.value = score
   STATE.value = 'GAME-END'
 }
@@ -20,7 +21,7 @@ function onGameEnd(score) {
 <template>
 <div>
   <LaunchZone v-if="STATE === 'IN-GAME'" @end="onGameEnd"/>
-  <GameScore :score="700" v-else-if="STATE === 'GAME-END'"/>
+  <GameScore :score="currentScore" v-else-if="STATE === 'GAME-END'"/>
   <StartScreen @start="STATE = 'IN-GAME'" v-else/>
 </div>
 </template>

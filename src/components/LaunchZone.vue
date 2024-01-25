@@ -29,7 +29,7 @@ const emit = defineEmits(['end'])
 
 function end() {
   document.removeEventListener('click', clickHandler)
-  setTimeout(() => emit('end'), 2000)
+  setTimeout(() => emit('end', root.value.querySelectorAll('.hit').length), 2000)
 }
 
 const endDebounced = debounce(end, 2000)

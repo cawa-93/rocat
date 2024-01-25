@@ -1,13 +1,14 @@
 <script setup>
 import {computed, ref} from "vue";
 
-import {MAX_HITS} from "../config.js";
+import {LINK_TO_DONATE, MAX_HITS} from "../config.js";
+import DonateLink from "./DonateLink.vue";
 
 const emit = defineEmits(['start'])
 const props = defineProps(['score'])
 
 const showDonateForm = ref(false)
-const donate = ref(100)
+const donate = ref('')
 
 const progress = computed(() => Math.round((props.score / MAX_HITS) * 100))
 </script>
@@ -32,20 +33,27 @@ const progress = computed(() => Math.round((props.score / MAX_HITS) * 100))
         <div></div>
       </div>
 
-      <small>Destroyed {{ progress }}% targets</small>
+      <small>Destroyed {{ progress }}% of targets</small>
     </div>
 
     <div class="donate-section">
       <small v-if="showDonateForm">How many to launch?</small>
+      <div class="fast-donate" v-if="showDonateForm">
+        <DonateLink v-for="v of [50, 100, 200]" :key="v" :value="v" />
+      </div>
       <div v-if="showDonateForm" class="donate-input">
         <img class="rocket" src="../assets/rocket.svg" alt="Rocket">
         <img src="../assets/x.svg" alt="X">
         <div class="input-wrapper">
-          <input type="number" name="a" v-model="donate">
+          <input type="number" name="a" v-model="donate" placeholder="100">
         </div>
       </div>
-      <a v-if="showDonateForm" target="_blank" :href="'https://send.monobank.ua/jar/4Dyucs5PBU?a=' + donate"
-         class="pulse">Launch</a>
+      <a v-if="showDonateForm"
+         target="_blank"
+         :href="LINK_TO_DONATE + '?a=' + donate"
+         rel="noopener noreferrer"
+         class="pulse"
+      >Launch</a>
       <button v-if="!showDonateForm" class="open-donate" type="button" @click="showDonateForm = true">
         Launch more
       </button>
@@ -131,7 +139,7 @@ h2 {
   box-sizing: border-box;
   height: 100%;
   position: relative;
-  animation: expandWidth ease-in-out 3s 2s;
+  animation: expandWidth ease-in-out 2s 2s;
   animation-fill-mode: forwards;
 
 }
@@ -171,7 +179,7 @@ h2 {
 
 .score-section small {
   opacity: 0;
-  animation: fadeIn 300ms 5s;
+  animation: fadeIn 300ms 4s;
   animation-fill-mode: forwards;
 }
 
@@ -180,11 +188,17 @@ h2 {
   gap: 0.5em;
 }
 
+.fast-donate {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
 
 .donate-input {
   display: flex;
   gap: 0.5em;
   align-items: center;
+  justify-content: center;
 }
 
 input {
@@ -220,7 +234,7 @@ a {
 
 .open-donate {
   scale: 0;
-  animation: zoomIn 300ms 6s, pulse 2s 6s infinite;
+  animation: zoomIn 300ms 4.5s, pulse 2s 4.5s infinite;
   animation-fill-mode: forwards;
 }
 
