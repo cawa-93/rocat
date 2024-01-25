@@ -4,7 +4,7 @@ import './style.css'
 import App from './App.vue'
 
 const supportedLocales = ['en', 'uk']
-const allowedLocales = navigator.languages.filter(l => supportedLocales.includes(l))
+const allowedLocales = navigator.languages.filter(l => supportedLocales.includes(l.split('-')[0]))
 function l (...args) {
     alert(JSON.stringify(args))
 }
