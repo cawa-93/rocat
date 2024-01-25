@@ -154,6 +154,7 @@ h2 {
   opacity: 0;
   animation: fadeIn 300ms 1.5s;
   animation-fill-mode: forwards;
+  justify-content: center;
 }
 
 
