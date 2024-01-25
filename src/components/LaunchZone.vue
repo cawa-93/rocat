@@ -28,8 +28,8 @@ function debounce(func, timeout = 300) {
 const emit = defineEmits(['end'])
 
 function end() {
-  // document.removeEventListener('click', clickHandler)
-  // setTimeout(() => emit('end'), 2000)
+  document.removeEventListener('click', clickHandler)
+  setTimeout(() => emit('end'), 2000)
 }
 
 const endDebounced = debounce(end, 2000)

@@ -18,7 +18,7 @@ html, body {
   color: var(--foreground);
 }
 
-button {
+button, a {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -28,11 +28,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+:is(button, a):hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+:is(button, a):focus,
+:is(button, a):focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
