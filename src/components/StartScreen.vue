@@ -21,11 +21,11 @@ const { t } = useI18n({
 <i18n>
 {
   "en": {
-    "rules": "You have a limited time to hit as many military targets as possible!",
+    "rules": "You have a limited time to launch as many rockets as you can!",
     "action": "Tap to start"
   },
   "uk": {
-    "rules": "Ти маєш обмежений час, щоб вразити якомога більше військових цілей!",
+    "rules": "У тебе обмежений час, щоб запустити якомога більше ракет!",
     "action": "Торкнись, щоб почати"
   }
 }
