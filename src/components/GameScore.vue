@@ -91,7 +91,7 @@ section {
   align-items: center;
   font-weight: lighter;
   font-size: 2em;
-  padding: 20px 10%;
+  padding: 20px 5%;
   overflow: hidden;
 }
 
@@ -193,6 +193,7 @@ h2 {
   display: flex;
   gap: 0.5em;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .donate-input {
