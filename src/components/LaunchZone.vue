@@ -2,6 +2,12 @@
 
 import {onMounted, onUnmounted, ref} from "vue";
 import {clearScore} from "../gameScore.js";
+import {useI18n} from "vue-i18n";
+
+const { t } = useI18n({
+  inheritLocale: true,
+  useScope: 'local'
+})
 
 /** @type {Ref<HTMLElement>} */
 const root = ref()
@@ -112,7 +118,7 @@ function launchRocket(from) {
       <div>3</div>
       <div>2</div>
       <div>1</div>
-      <div>TAP!</div>
+      <div>{{t('start')}}</div>
     </div>
 
     <div id="map-container">
@@ -375,6 +381,17 @@ function launchRocket(from) {
   </div>
 </template>
 
+<i18n>
+{
+  "en": {
+    "start": "TAP!"
+  },
+  "uk": {
+    "start": "ТАП!"
+  }
+}
+</i18n>
+
 <style scoped lang="css">
 
 .time-count {
@@ -383,7 +400,7 @@ function launchRocket(from) {
   background: var(--background);
   width: 100%;
   height: 100%;
-  font-size: 11em;
+  font-size: 9em;
   padding: 3rem;
   box-sizing: border-box;
   display: flex;

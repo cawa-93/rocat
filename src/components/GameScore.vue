@@ -3,22 +3,28 @@ import {computed, ref} from "vue";
 
 import {LINK_TO_DONATE, MAX_HITS} from "../config.js";
 import DonateLink from "./DonateLink.vue";
+import {useI18n} from "vue-i18n";
+
+const { t } = useI18n({
+  inheritLocale: true,
+  useScope: 'local'
+})
 
 const emit = defineEmits(['start'])
 const props = defineProps(['score'])
 
 const showDonateForm = ref(false)
-const donate = ref('')
+const donate = ref('100')
 
 const progress = computed(() => Math.round((props.score / MAX_HITS) * 100))
 </script>
 
 <template>
   <section @click="emit('start')">
-    <h1>Time ended</h1>
+    <h1>{{t('end-time')}}</h1>
 
     <div class="score-section">
-      <h2>Your score</h2>
+      <h2>{{t('score.title')}}</h2>
 
       <div class="score">
         <img src="../assets/fire.svg" alt="Hits">
@@ -33,11 +39,11 @@ const progress = computed(() => Math.round((props.score / MAX_HITS) * 100))
         <div></div>
       </div>
 
-      <small>Destroyed {{ progress }}% of targets</small>
+      <small>{{t('score.desc', {percent: progress})}}</small>
     </div>
 
     <div class="donate-section">
-      <small v-if="showDonateForm">How many to launch?</small>
+      <small v-if="showDonateForm">{{t('donate.title')}}</small>
       <div class="fast-donate" v-if="showDonateForm">
         <DonateLink v-for="v of [50, 100, 200]" :key="v" :value="v" />
       </div>
@@ -53,16 +59,46 @@ const progress = computed(() => Math.round((props.score / MAX_HITS) * 100))
          :href="LINK_TO_DONATE + '?a=' + donate"
          rel="noopener noreferrer"
          class="pulse"
-      >Launch</a>
+      >
+        {{t('donate.send')}}
+      </a>
       <button v-if="!showDonateForm" class="open-donate" type="button" @click="showDonateForm = true">
-        Launch more
+        {{t('donate.open')}}
       </button>
     </div>
 
 
   </section>
-
 </template>
+
+<i18n>
+{
+  "en": {
+    "end-time": "Time ended",
+    "score": {
+      "title": "Your score",
+      "desc": "Destroyed {percent}% of targets"
+    },
+    "donate": {
+      "title": "How many to launch?",
+      "open": "Launch more",
+      "send": "Launch!"
+    }
+  },
+  "uk": {
+    "end-time": "Час вийшов",
+    "score": {
+      "title": "Твій рахунок",
+      "desc": "Знищено {percent}% московії"
+    },
+    "donate": {
+      "title": "Скільки запустити?",
+      "open": "Запустити ще",
+      "send": "Запуск!"
+    }
+  }
+}
+</i18n>
 
 <style scoped>
 
