@@ -116,9 +116,7 @@ function launchRocket(from) {
     </div>
 
     <div id="map-container">
-      <svg ref="moscovia" id="moscovia" xmlns:mapsvg="http://mapsvg.com" xmlns:dc="http://purl.org/dc/elements/1.1/"
-           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-           xmlns="http://www.w3.org/2000/svg" mapsvg:geoViewBox="19.642502 81.857875 190.345967 41.185573"
+      <svg ref="moscovia" id="moscovia"
            viewBox="0 0 1224.449 760.6203" width="1224.449" height="760.6203">
 
         <path
@@ -385,7 +383,7 @@ function launchRocket(from) {
   background: var(--background);
   width: 100%;
   height: 100%;
-  font-size: 15em;
+  font-size: 11em;
   padding: 3rem;
   box-sizing: border-box;
   display: flex;
@@ -453,7 +451,8 @@ function launchRocket(from) {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: clip;
+  overflow: hidden;
+  user-select: none;
 }
 
 #launch-zone-rockets-container {

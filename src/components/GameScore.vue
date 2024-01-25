@@ -92,6 +92,7 @@ section {
   font-weight: lighter;
   font-size: 2em;
   padding: 20px 10%;
+  overflow: hidden;
 }
 
 .score-section {
