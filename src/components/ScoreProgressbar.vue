@@ -63,6 +63,7 @@ const { t } = useI18n({
   position: relative;
   animation: expandWidth ease-in-out 2s 2s;
   animation-fill-mode: forwards;
+  transition: width 0.5s;
 }
 
 .progress > div:before,
