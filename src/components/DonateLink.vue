@@ -5,7 +5,7 @@ defineProps(['value'])
 </script>
 
 <template>
-  <a :href="LINK_TO_DONATE + '?a=' + value" target="_blank" rel="noopener noreferrer">
+  <a :href="LINK_TO_DONATE + '?t=🚀RoCat&a=' + value" target="_blank" rel="noopener noreferrer">
     <img class="rocket" src="../assets/rocket.svg" alt="Rocket">
     <img src="../assets/x.svg" alt="X">
     {{value}}

@@ -52,7 +52,7 @@ const donate = ref('100')
       </div>
       <a v-if="showDonateForm"
          target="_blank"
-         :href="LINK_TO_DONATE + '?a=' + donate"
+         :href="LINK_TO_DONATE + '?t=🚀RoCat&a=' + donate"
          rel="noopener noreferrer"
          class="pulse"
       >
