@@ -16,7 +16,7 @@ const props = defineProps(['score'])
 const showDonateForm = ref(false)
 const donate = ref('100')
 
-const progress = computed(() => Math.round((props.score / MAX_HITS) * 100))
+const progress = computed(() => Math.min( Math.round((props.score / MAX_HITS) * 100), 100))
 </script>
 
 <template>
