@@ -4,6 +4,7 @@ import {computed, ref} from "vue";
 import {LINK_TO_DONATE, MAX_HITS} from "../config.js";
 import DonateLink from "./DonateLink.vue";
 import {useI18n} from "vue-i18n";
+import ScoreProgressbar from "./ScoreProgressbar.vue";
 
 const { t } = useI18n({
   inheritLocale: true,
@@ -16,7 +17,6 @@ const props = defineProps(['score'])
 const showDonateForm = ref(false)
 const donate = ref('100')
 
-const progress = computed(() => Math.min( Math.round((props.score / MAX_HITS) * 100), 100))
 </script>
 
 <template>
@@ -35,11 +35,7 @@ const progress = computed(() => Math.min( Math.round((props.score / MAX_HITS) * 
         </b>
       </div>
 
-      <div class="progress" :style="{'--progress': progress + '%'}">
-        <div></div>
-      </div>
-
-      <small>{{t('score.desc', {percent: progress})}}</small>
+      <ScoreProgressbar :score="score"/>
     </div>
 
     <div class="donate-section">
@@ -158,62 +154,6 @@ h2 {
 }
 
 
-.progress {
-  height: 18px;
-  border: 2px solid #dc603a;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin-bottom: 50px;
-  opacity: 0;
-  animation: fadeIn 300ms 1.8s;
-  animation-fill-mode: forwards;
-}
-
-.progress > div {
-  display: block;
-  width: 0;
-  background-color: #f5c041;
-  background-clip: content-box;
-  box-sizing: border-box;
-  height: 100%;
-  position: relative;
-  animation: expandWidth ease-in-out 2s 2s;
-  animation-fill-mode: forwards;
-
-}
-
-.progress > div:before,
-.progress > div:after {
-  content: "";
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 32px;
-  aspect-ratio: 1;
-  background-size: contain;
-  translate: 50% calc(100% + 10px);
-}
-
-@keyframes expandWidth {
-  to {
-    width: var(--progress);
-  }
-}
-
-.progress > div:before {
-  background-color: #f5c041;
-  border-radius: 50% 50% 50% 0;
-  rotate: 135deg;
-}
-
-
-.progress > div:after {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("../assets/fire.svg");
-  width: 16px;
-}
 
 .score-section small {
   opacity: 0;
@@ -288,15 +228,5 @@ a {
   }
 }
 
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
 
 </style>

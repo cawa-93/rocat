@@ -3,6 +3,7 @@
 import {onMounted, onUnmounted, ref} from "vue";
 import {clearScore} from "../gameScore.js";
 import {useI18n} from "vue-i18n";
+import ScoreProgressbar from "./ScoreProgressbar.vue";
 
 const { t } = useI18n({
   inheritLocale: true,
@@ -15,6 +16,8 @@ const root = ref()
 const moscovia = ref()
 /** @type {Ref<HTMLElement>} */
 const countdown = ref()
+
+const score = ref(0)
 
 function isStrike({x, y}) {
   return document.elementFromPoint(x, y) instanceof SVGPathElement
@@ -52,12 +55,34 @@ function clickHandler(event) {
   endDebounced();
 }
 
+/**
+ *
+ * @param {AnimationEvent} event
+ */
+function launchAnimationEnd(event) {
+  if (!event || !(event.target instanceof HTMLElement)) {
+    return
+  }
+
+  if (event.target.classList.contains('hit')) {
+    score.value ++
+    return;
+  }
+
+  if (event.target.classList.contains('miss')) {
+    event.target.remove()
+  }
+}
 
 onMounted(() => {
   clearScore()
   countdown.value.addEventListener('animationend', (event) => {
     if (event.target === countdown.value) {
+
+      root.value.addEventListener('animationend', launchAnimationEnd)
+
       document.addEventListener('click', clickHandler)
+
     }
   });
 })
@@ -95,10 +120,6 @@ function launchRocket(from) {
 
   target.classList.add(isStrike(to) ? 'hit' : 'miss')
 
-  if (target.classList.contains('miss')) {
-    target.addEventListener('animationend', target.remove)
-  }
-
   target.style.setProperty('--left', (left * 100) + '%')
   target.style.setProperty('--top', (top * 100) + '%')
 
@@ -120,6 +141,8 @@ function launchRocket(from) {
       <div>1</div>
       <div>{{t('start')}}</div>
     </div>
+
+    <ScoreProgressbar class="in-game-score-counter" :score="score"/>
 
     <div id="map-container">
       <svg ref="moscovia" id="moscovia"
@@ -470,6 +493,26 @@ function launchRocket(from) {
   justify-content: center;
   overflow: hidden;
   user-select: none;
+}
+
+.in-game-score-counter {
+  position: fixed;
+  top: 15px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1em;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 10px;
+  max-width: 800px;
+  line-height: 1.2;
+  animation-delay: 0s !important;
+}
+
+.in-game-score-counter :deep(.progress) {
+  flex: 1;
 }
 
 #launch-zone-rockets-container {

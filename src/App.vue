@@ -10,7 +10,7 @@ import GameScore from "./components/GameScore.vue";
  */
 const STATE = ref(import.meta.env.PROD ? 'START-SCREEN' : 'START-SCREEN')
 
-const currentScore = ref(0)
+const currentScore = ref(2166)
 function onGameEnd(score) {
   console.log({score})
   currentScore.value = score
