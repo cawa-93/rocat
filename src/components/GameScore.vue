@@ -72,8 +72,7 @@ const donate = ref('100')
   "en": {
     "end-time": "Time ended",
     "score": {
-      "title": "Your score",
-      "desc": "Destroyed {percent}% of targets"
+      "title": "Your score"
     },
     "donate": {
       "title": "How many to launch?",
@@ -84,8 +83,7 @@ const donate = ref('100')
   "uk": {
     "end-time": "Час вийшов",
     "score": {
-      "title": "Твій рахунок",
-      "desc": "Знищено {percent}% московії"
+      "title": "Твій рахунок"
     },
     "donate": {
       "title": "Скільки запустити?",
@@ -151,14 +149,6 @@ h2 {
   animation: fadeIn 300ms 1.5s;
   animation-fill-mode: forwards;
   justify-content: center;
-}
-
-
-
-.score-section small {
-  opacity: 0;
-  animation: fadeIn 300ms 4s;
-  animation-fill-mode: forwards;
 }
 
 .donate-section {

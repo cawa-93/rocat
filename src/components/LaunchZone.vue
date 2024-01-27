@@ -37,8 +37,8 @@ function debounce(func, timeout = 300) {
 const emit = defineEmits(['end'])
 
 function end() {
-  // document.removeEventListener('click', clickHandler)
-  // emit('end', score.value)
+  document.removeEventListener('click', clickHandler)
+  emit('end', score.value)
 }
 
 const endDebounced = debounce(end, 2000)
@@ -512,6 +512,10 @@ function launchRocket(from) {
 
 .in-game-score-counter :deep(.progress) {
   flex: 1;
+}
+
+.in-game-score-counter :deep(small) {
+  font-size: inherit;
 }
 
 #launch-zone-rockets-container {

@@ -98,4 +98,11 @@ const { t } = useI18n({
   background-image: url("../assets/fire.svg");
   width: 16px;
 }
+
+small {
+  font-size: 60%;
+  opacity: 0;
+  animation: fadeIn 300ms 4s;
+  animation-fill-mode: forwards;
+}
 </style>
