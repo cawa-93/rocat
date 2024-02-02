@@ -27,6 +27,10 @@ const { t } = useI18n({
   "uk": {
     "rules": "У тебе обмежений час, щоб запустити якомога більше ракет!",
     "action": "Торкнись, щоб почати"
+  },
+  "pl": {
+    "rules": "Masz ograniczony czas na wystrzelenie jak największej liczby rakiet",
+    "action": "Naciśnij, aby rozpocząć"
   }
 }
 </i18n>

@@ -34,6 +34,12 @@ const { t } = useI18n({
       "title": "Твій рахунок",
       "desc": "Знищено {percent}% московії"
     }
+  },
+  "pl": {
+    "score": {
+      "title": "Twój wynik",
+      "desc": "Zniszczono {percent}% Moskwy"
+    }
   }
 }
 </i18n>

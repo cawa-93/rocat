@@ -90,6 +90,17 @@ const donate = ref('100')
       "open": "Запустити ще",
       "send": "Запуск!"
     }
+  },
+  "pl": {
+    "end-time": "Czas minął",
+    "score": {
+      "title": "Twój wynik"
+    },
+    "donate": {
+      "title": "Ile chcesz wystrzelić?",
+      "open": "Запустити ще",
+      "send": "Wystrzel!"
+    }
   }
 }
 </i18n>

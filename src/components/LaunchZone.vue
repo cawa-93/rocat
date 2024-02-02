@@ -1,7 +1,6 @@
 <script setup>
 
 import {onMounted, onUnmounted, ref} from "vue";
-import {clearScore} from "../gameScore.js";
 import {useI18n} from "vue-i18n";
 import ScoreProgressbar from "./ScoreProgressbar.vue";
 
@@ -74,7 +73,6 @@ function launchAnimationEnd(event) {
 }
 
 onMounted(() => {
-  clearScore()
   countdown.value.addEventListener('animationend', (event) => {
     if (event.target === countdown.value) {
 
@@ -410,6 +408,9 @@ function launchRocket(from) {
   },
   "uk": {
     "start": "ТАП!"
+  },
+  "pl": {
+    "start": "TAP!"
   }
 }
 </i18n>
@@ -480,7 +481,7 @@ function launchRocket(from) {
 
 #moscovia {
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   height: auto;
 }
 

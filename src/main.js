@@ -3,11 +3,11 @@ import { createI18n } from 'vue-i18n'
 import './style.css'
 import App from './App.vue'
 
-const supportedLocales = ['en', 'uk']
+const supportedLocales = ['en', 'pl', 'uk']
 const allowedLocales = navigator.languages.filter(l => supportedLocales.includes(l.split('-')[0]))
 
 const i18n = createI18n({
-    locale: allowedLocales[0],
+    locale: 'pl',
     fallbackLocale: supportedLocales[0]
 })
 
