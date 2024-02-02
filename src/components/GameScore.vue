@@ -98,7 +98,7 @@ const donate = ref('100')
     },
     "donate": {
       "title": "Ile chcesz wystrzelić?",
-      "open": "Запустити ще",
+      "open": "Wystrzel więcej",
       "send": "Wystrzel!"
     }
   }
