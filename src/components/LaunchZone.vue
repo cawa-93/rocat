@@ -36,8 +36,8 @@ function debounce(func, timeout = 300) {
 const emit = defineEmits(['end'])
 
 function end() {
-//   document.removeEventListener('click', clickHandler)
-//   emit('end', score.value)
+  document.removeEventListener('click', clickHandler)
+  emit('end', score.value)
 }
 
 const endDebounced = debounce(end, 2000)
@@ -92,8 +92,8 @@ onUnmounted(() => document.removeEventListener('click', clickHandler))
  */
 function launchRocket(from) {
 
-  const left = 0.11//Math.random()
-  const top = 0.78//Math.random()
+  const left = Math.random()
+  const top = Math.random()
 
   const clientRect = moscovia.value.getBoundingClientRect();
 
