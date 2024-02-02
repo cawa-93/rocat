@@ -7,7 +7,7 @@ const supportedLocales = ['en', 'pl', 'uk']
 const allowedLocales = navigator.languages.filter(l => supportedLocales.includes(l.split('-')[0]))
 
 const i18n = createI18n({
-    locale: 'pl',
+    locale: allowedLocales[0],
     fallbackLocale: supportedLocales[0]
 })
 
